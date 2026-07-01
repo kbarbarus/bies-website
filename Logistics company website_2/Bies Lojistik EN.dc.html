@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Bies Lojistik</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#ffffff}
+  @keyframes bies-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.82)}}
+  @media (max-width:860px){
+    [style*="max-width: 1680px"]{padding-left:20px!important;padding-right:20px!important}
+    [style*="padding: 96px 32px"]{padding-top:56px!important;padding-bottom:56px!important}
+    [style*="padding: 84px 32px"]{padding-top:56px!important;padding-bottom:56px!important}
+    [style*="padding: 64px 32px"]{padding-top:44px!important;padding-bottom:44px!important}
+    [style*="padding: 72px 32px 0px"]{padding-top:40px!important}
+    [style*="grid-template-columns: 1.08fr 0.92fr"]{grid-template-columns:1fr!important;gap:36px!important}
+    [style*="grid-template-columns: 0.95fr 1.05fr"]{grid-template-columns:1fr!important;gap:40px!important}
+    [style*="grid-template-columns: 0.82fr 1.18fr"]{grid-template-columns:1fr!important;gap:36px!important}
+    [style*="grid-template-columns: 1.1fr 0.9fr"]{grid-template-columns:1fr!important;gap:40px!important}
+    [style*="grid-template-columns: 1fr 1fr"]{grid-template-columns:1fr!important}
+    [style*="grid-template-columns: repeat(2, 1fr)"]{grid-template-columns:1fr!important}
+    [style*="grid-template-columns: repeat(4, 1fr)"]{grid-template-columns:repeat(2, 1fr)!important;gap:30px 24px!important}
+    [style*="grid-template-columns: repeat(7, 1fr)"]{grid-template-columns:repeat(3, 1fr)!important;gap:24px 16px!important}
+    [style*="top: 96px"]{position:static!important}
+    [style*="bottom: -22px; left: -22px"]{position:static!important;left:auto!important;bottom:auto!important;margin-top:16px!important;min-width:0!important;box-shadow:0 10px 26px rgba(18,18,20,.12)!important}
+    [style*="font-size: 62px"]{font-size:36px!important}
+    [style*="font-size: 44px"]{font-size:30px!important}
+    [style*="font-size: 42px"]{font-size:28px!important}
+    [style*="font-size: 40px"]{font-size:27px!important}
+    [style*="font-size: 52px"]{font-size:40px!important}
+    #menubtn{display:inline-flex!important}
+    header [style*="height: 48px"]{height:38px!important}
+    #mainnav{position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column!important;align-items:stretch!important;gap:0!important;padding:6px 20px 14px!important;border-bottom:1px solid #ECECEE;box-shadow:0 14px 26px rgba(0,0,0,.09);display:none!important}
+    #mainnav.open{display:flex!important}
+    #mainnav a{padding:13px 2px!important;border-bottom:1px solid #F1F1F1;font-size:16px!important}
+  }
+  @media (max-width:520px){
+    [style*="font-size: 62px"]{font-size:30px!important}
+    [style*="grid-template-columns: repeat(7, 1fr)"]{grid-template-columns:repeat(2, 1fr)!important}
+  }
+</style>
+<script src="./image-slot.js"></script>
+</helmet>
+
+<div style="font-family:'Archivo',system-ui,sans-serif;color:#1A1A1E;-webkit-font-smoothing:antialiased;line-height:1.5">
+
+  <!-- UTILITY BAR -->
+  <div style="background:#121214;color:#C9C9CE;font-size:12.5px;letter-spacing:.02em">
+    <div style="max-width:1680px;margin:0 auto;padding:9px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:24px">
+        <a href="tel:+905384486346" style="color:#C9C9CE;text-decoration:none">+90 538 448 63 46</a>
+        <span style="opacity:.4">·</span>
+        <a href="mailto:bilgi@bieslojistik.com.tr" style="color:#C9C9CE;text-decoration:none">bilgi@bieslojistik.com.tr</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:18px">
+        <span style="font-weight:600;color:#fff">EN</span><span style="opacity:.35">/</span><a href="Bies Lojistik.dc.html" style="color:#8A8A92;text-decoration:none">TR</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.6) blur(10px);border-bottom:1px solid #ECECEE;box-shadow:{{ headerShadow }};transition:box-shadow .25s ease">
+    <div style="max-width:1680px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <a href="#top" style="display:flex;align-items:center;flex:none"><img src="assets/bies-logo.png" alt="Bies Lojistik" style="height:48px;width:auto;display:block"></a>
+      <nav id="mainnav" class="{{ navClass }}" onClick="{{ closeMenu }}" style="display:flex;align-items:center;gap:30px;font-size:14.5px;font-weight:600">
+        <a href="#services" style="color:#1A1A1E;text-decoration:none">Services</a>
+        <a href="#cold-chain" style="color:#1A1A1E;text-decoration:none">Cold Chain</a>
+        <a href="#about" style="color:#1A1A1E;text-decoration:none">About</a>
+        <a href="#why" style="color:#1A1A1E;text-decoration:none">Why Bies</a>
+        <a href="#clients" style="color:#1A1A1E;text-decoration:none">Clients</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:10px;flex:none">
+        <a href="#contact" style="display:inline-flex;align-items:center;gap:9px;background:#DC1733;color:#fff;font-weight:700;font-size:14.5px;text-decoration:none;padding:11px 20px;border-radius:2px;letter-spacing:.01em">Get a quote
+          <span style="font-size:15px;line-height:1">→</span>
+        </a>
+        <button id="menubtn" onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;justify-content:center;width:44px;height:44px;background:#fff;border:1.5px solid #E2E2E4;border-radius:3px;color:#121214;font-size:20px;line-height:1;cursor:pointer">{{ menuIcon }}</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" style="position:relative;overflow:hidden;background:#0A0A0C;border-bottom:1px solid #ECECEE">
+    <image-slot id="bies-hero-truck" style="position:absolute;inset:0;width:100%;height:100%;display:block" shape="rect" placeholder="Drop a reefer / truck photo"></image-slot>
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,8,10,.90) 0%,rgba(8,8,10,.64) 40%,rgba(8,8,10,.14) 78%,rgba(8,8,10,0) 100%);pointer-events:none"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,10,.42) 0%,rgba(8,8,10,0) 24%,rgba(8,8,10,0) 58%,rgba(8,8,10,.58) 100%);pointer-events:none"></div>
+
+    <div style="position:relative;display:flex;flex-direction:column;min-height:clamp(480px,74vh,680px)">
+      <div style="flex:1;display:flex;align-items:center">
+        <div style="width:100%;max-width:1680px;margin:0 auto;padding:64px 32px">
+          <div style="max-width:760px">
+            <div style="display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#FF5A72;margin-bottom:22px">
+              <span style="width:26px;height:2px;background:#FF5A72"></span>Türkiye · Cold Chain
+            </div>
+            <h1 style="font-size:clamp(38px,6vw,74px);line-height:.99;font-weight:900;letter-spacing:-.03em;margin:0 0 22px;color:#fff;text-wrap:balance">Freight that runs<br>on time. Cold chain<br>that never breaks.</h1>
+            <p style="font-size:clamp(16px,1.4vw,19px);line-height:1.55;color:rgba(255,255,255,.82);max-width:520px;margin:0 0 34px">Bies Lojistik moves temperature-critical and full-load freight across Türkiye — tracked end to end, held at the right degree, and delivered when it has to be there.</p>
+            <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+              <a href="#contact" style="display:inline-flex;align-items:center;gap:9px;background:#DC1733;color:#fff;font-weight:700;font-size:16px;text-decoration:none;padding:16px 28px;border-radius:2px">Talk to our team <span style="line-height:1">→</span></a>
+              <a href="#services" style="display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.10);color:#fff;font-weight:700;font-size:16px;text-decoration:none;padding:16px 26px;border-radius:2px;border:1.5px solid rgba(255,255,255,.38)">Explore services</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="width:100%;background:rgba(255,255,255,.07);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.14)">
+        <div style="max-width:1680px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;font-size:13.5px;font-weight:600;color:rgba(255,255,255,.9)">
+          <span style="display:flex;align-items:center;gap:9px"><span style="width:7px;height:7px;border-radius:50%;background:#34C759;animation:bies-pulse 1.8s ease-in-out infinite"></span>100% on-time delivery</span>
+          <span style="width:1px;height:15px;background:rgba(255,255,255,.22)"></span>
+          <span style="display:flex;align-items:center;gap:9px"><span style="color:#FF5A72;font-size:15px">●</span>−20°C → +25°C temperature control</span>
+          <span style="width:1px;height:15px;background:rgba(255,255,255,.22)"></span>
+          <span style="display:flex;align-items:center;gap:9px"><span style="color:#FF5A72;font-size:15px">●</span>24/7 operations desk</span>
+          <span style="width:1px;height:15px;background:rgba(255,255,255,.22)"></span>
+          <span style="display:flex;align-items:center;gap:9px"><span style="color:#FF5A72;font-size:15px">●</span>FTL · LTL · Container</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTS -->
+  <section id="clients" style="background:#F6F6F4;border-bottom:1px solid #ECECEE">
+    <div style="max-width:1680px;margin:0 auto;padding:40px 32px">
+      <div style="text-align:center;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9A9AA0;margin-bottom:26px">Trusted by shippers in food &amp; retail</div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:24px;align-items:center">
+        <div style="height:64px;display:flex;align-items:center;justify-content:center"><img src="assets/ref-senpilic.png" alt="Şenpiliç" style="max-height:56px;max-width:100%;object-fit:contain"></div>
+        <div style="height:64px;display:flex;align-items:center;justify-content:center"><img src="assets/ref-rks.png" alt="RKS" style="max-height:40px;max-width:100%;object-fit:contain"></div>
+        <div style="height:64px;display:flex;align-items:center;justify-content:center"><img src="assets/ref-nicedo.png" alt="Nicedo" style="max-height:60px;max-width:100%;object-fit:contain"></div>
+        <div style="height:64px;display:flex;align-items:center;justify-content:center"><img src="assets/ref-aspilic.png" alt="Aspiliç" style="max-height:48px;max-width:100%;object-fit:contain"></div>
+        <div style="height:64px;display:flex;align-items:center;justify-content:center"><img src="assets/ref-bashan.jpg" alt="Başhan" style="max-height:60px;max-width:100%;object-fit:contain"></div>
+        <div style="height:64px;display:flex;align-items:center;justify-content:center"><img src="assets/ref-abali.jpg" alt="Abalı" style="max-height:58px;max-width:100%;object-fit:contain"></div>
+        <div style="height:64px;display:flex;align-items:center;justify-content:center"><img src="assets/ref-kivam.png" alt="Kıvam Dondurma" style="max-height:46px;max-width:100%;object-fit:contain"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" style="background:#fff">
+    <div style="max-width:1680px;margin:0 auto;padding:96px 32px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:48px;flex-wrap:wrap">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#DC1733;margin-bottom:16px"><span style="width:24px;height:2px;background:#DC1733"></span>What we move</div>
+          <h2 style="font-size:42px;line-height:1.05;font-weight:900;letter-spacing:-.025em;margin:0;color:#121214;max-width:620px">Two things we do<br>better than anyone</h2>
+        </div>
+        <p style="font-size:16px;color:#55555C;max-width:340px;margin:0">Full-load road freight and unbroken cold chain — one operator, one accountable team, from pickup to proof of delivery.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+        <!-- Road freight -->
+        <div style="border:1px solid #E6E6E8;border-radius:6px;overflow:hidden;background:#fff">
+          <image-slot id="bies-svc-road" style="width:100%;height:230px;display:block" shape="rect" placeholder="Drop a road-freight photo"></image-slot>
+          <div style="padding:30px 30px 34px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#DC1733">01</span>
+              <span style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9A9AA0">Road Freight</span>
+            </div>
+            <h3 style="font-size:25px;font-weight:800;letter-spacing:-.02em;margin:0 0 12px;color:#121214">FTL &amp; LTL across Türkiye</h3>
+            <p style="font-size:15.5px;line-height:1.6;color:#55555C;margin:0 0 20px">Full truckloads on planned domestic lanes. A fleet built for tight windows, with live tracking and a single point of contact for every shipment.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <span style="font-size:13px;font-weight:600;color:#3A3A40;background:#F4F4F3;border:1px solid #E6E6E8;border-radius:2px;padding:6px 11px">Full truckload</span>
+              <span style="font-size:13px;font-weight:600;color:#3A3A40;background:#F4F4F3;border:1px solid #E6E6E8;border-radius:2px;padding:6px 11px">Digital waybills</span>
+            </div>
+          </div>
+        </div>
+        <!-- Cold chain -->
+        <div style="border:1px solid #E6E6E8;border-radius:6px;overflow:hidden;background:#fff">
+          <image-slot id="bies-svc-cold" style="width:100%;height:230px;display:block" shape="rect" placeholder="Drop a cold-storage / reefer photo"></image-slot>
+          <div style="padding:30px 30px 34px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#DC1733">02</span>
+              <span style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9A9AA0">Cold Chain</span>
+            </div>
+            <h3 style="font-size:25px;font-weight:800;letter-spacing:-.02em;margin:0 0 12px;color:#121214">Temperature-controlled transport</h3>
+            <p style="font-size:15.5px;line-height:1.6;color:#55555C;margin:0 0 20px">Chilled and ambient cargo held at the right degree for the entire journey. Continuous monitoring for food and perishables that can't afford a gap.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <span style="font-size:13px;font-weight:600;color:#3A3A40;background:#F4F4F3;border:1px solid #E6E6E8;border-radius:2px;padding:6px 11px">Frigo / reefer</span>
+              <span style="font-size:13px;font-weight:600;color:#3A3A40;background:#F4F4F3;border:1px solid #E6E6E8;border-radius:2px;padding:6px 11px">Multi-temp</span>
+              <span style="font-size:13px;font-weight:600;color:#3A3A40;background:#F4F4F3;border:1px solid #E6E6E8;border-radius:2px;padding:6px 11px">24/7 temp logging</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLD CHAIN FEATURE -->
+  <section id="cold-chain" style="background:#0E1822;color:#fff;position:relative;overflow:hidden">
+    <div style="max-width:1680px;margin:0 auto;padding:96px 32px">
+      <div style="display:grid;grid-template-columns:.95fr 1.05fr;gap:64px;align-items:center">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#5BB6F5;margin-bottom:20px"><span style="width:24px;height:2px;background:#5BB6F5"></span>The cold chain, unbroken</div>
+          <h2 style="font-size:40px;line-height:1.07;font-weight:900;letter-spacing:-.025em;margin:0 0 20px">From −20°C to +25°C,<br>without a single gap</h2>
+          <p style="font-size:17px;line-height:1.6;color:#A9B4BF;margin:0 0 32px;max-width:480px">Every reefer is calibrated, pre-cooled and logged. Sensors stream temperature the whole way, and our operations desk is alerted the moment a load drifts — so it's corrected before it's a problem.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px 36px;max-width:460px">
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#5BB6F5;letter-spacing:.04em">CHILLED</div>
+              <div style="font-size:14px;color:#A9B4BF;margin-top:5px">Meat and cold-stored goods held steady around −20°C.</div>
+            </div>
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#5BB6F5;letter-spacing:.04em">FRESH</div>
+              <div style="font-size:14px;color:#A9B4BF;margin-top:5px">Dairy and fresh food held steady at 0°C to +4°C.</div>
+            </div>
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#5BB6F5;letter-spacing:.04em">PRODUCE</div>
+              <div style="font-size:14px;color:#A9B4BF;margin-top:5px">Fruit, vegetables and sensitive fresh goods at +4°C to +8°C.</div>
+            </div>
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#5BB6F5;letter-spacing:.04em">AMBIENT</div>
+              <div style="font-size:14px;color:#A9B4BF;margin-top:5px">Temperature-sensitive dry goods at +15°C to +25°C.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- assurance panel -->
+        <div style="background:#16222F;border:1px solid #243441;border-radius:8px;padding:28px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+            <span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8C99A6">Cold chain assurance</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#5BB6F5">−20°C → +25°C</span>
+          </div>
+          <div style="margin-bottom:28px">
+            <div style="height:10px;border-radius:5px;background:linear-gradient(90deg,#2563EB 0%,#38BDF8 30%,#E5E7EB 64%,#F59E0B 100%)"></div>
+            <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;color:#6E7C8A;margin-top:8px">
+              <span>−20°C</span><span>+10°C</span><span>+25°C</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <div style="display:flex;align-items:center;gap:13px;padding:14px;background:#0E1822;border-radius:5px">
+              <span style="flex:none;width:22px;height:22px;border-radius:50%;background:rgba(91,182,245,.14);color:#5BB6F5;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">✓</span>
+              <span style="font-size:13.5px;color:#D4DBE2">Calibration and pre-cooling before every trip</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:13px;padding:14px;background:#0E1822;border-radius:5px">
+              <span style="flex:none;width:22px;height:22px;border-radius:50%;background:rgba(91,182,245,.14);color:#5BB6F5;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">✓</span>
+              <span style="font-size:13.5px;color:#D4DBE2">Continuous temperature logging on the road</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:13px;padding:14px;background:#0E1822;border-radius:5px">
+              <span style="flex:none;width:22px;height:22px;border-radius:50%;background:rgba(91,182,245,.14);color:#5BB6F5;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">✓</span>
+              <span style="font-size:13.5px;color:#D4DBE2">Operations alerted the moment a load drifts</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:13px;padding:14px;background:#0E1822;border-radius:5px">
+              <span style="flex:none;width:22px;height:22px;border-radius:50%;background:rgba(91,182,245,.14);color:#5BB6F5;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">✓</span>
+              <span style="font-size:13.5px;color:#D4DBE2">Temperature report on delivery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section ref="{{ statsRef }}" style="background:#DC1733;color:#fff">
+    <div style="max-width:1680px;margin:0 auto;padding:64px 32px">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px">
+        <div style="border-left:2px solid rgba(255,255,255,.32);padding-left:22px">
+          <div style="font-size:52px;font-weight:900;letter-spacing:-.03em;line-height:1">6<span style="font-size:30px;vertical-align:top;margin-left:2px">+</span></div>
+          <div style="font-size:14px;font-weight:600;color:#FBD4DB;margin-top:8px">Years moving freight</div>
+        </div>
+        <div style="border-left:2px solid rgba(255,255,255,.32);padding-left:22px">
+          <div style="font-size:52px;font-weight:900;letter-spacing:-.03em;line-height:1">30+</div>
+          <div style="font-size:14px;font-weight:600;color:#FBD4DB;margin-top:8px">Vehicles in the fleet</div>
+        </div>
+        <div style="border-left:2px solid rgba(255,255,255,.32);padding-left:22px">
+          <div style="font-size:52px;font-weight:900;letter-spacing:-.03em;line-height:1">{{ onTime }}<span style="font-size:30px;vertical-align:top;margin-left:2px">%</span></div>
+          <div style="font-size:14px;font-weight:600;color:#FBD4DB;margin-top:8px">On-time delivery rate</div>
+        </div>
+        <div style="border-left:2px solid rgba(255,255,255,.32);padding-left:22px">
+          <div style="font-size:52px;font-weight:900;letter-spacing:-.03em;line-height:1">1</div>
+          <div style="font-size:14px;font-weight:600;color:#FBD4DB;margin-top:8px">Countries on our lanes</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" style="background:#F6F6F4;border-top:1px solid #ECECEE;border-bottom:1px solid #ECECEE">
+    <div style="max-width:1680px;margin:0 auto;padding:96px 32px">
+      <div style="display:grid;grid-template-columns:.82fr 1.18fr;gap:64px;align-items:start">
+        <div style="position:sticky;top:96px">
+          <div style="display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#DC1733;margin-bottom:16px"><span style="width:24px;height:2px;background:#DC1733"></span>About us</div>
+          <h2 style="font-size:42px;line-height:1.05;font-weight:900;letter-spacing:-.025em;margin:0 0 22px;color:#121214">A fleet that's grown without pause since 2020</h2>
+          <p style="font-size:16.5px;line-height:1.65;color:#55555C;margin:0 0 16px">Bies Lojistik Gıda Sanayi ve Ticaret Ltd. Şti. set out in Adana, Türkiye in October 2020 with bulk tanker (silo) transport. Each year we added a new line of service, expanding our fleet and service points.</p>
+          <p style="font-size:16.5px;line-height:1.65;color:#55555C;margin:0">Growing fast, we continue to widen our network as a logistics solution partner to Türkiye's leading producers.</p>
+        </div>
+        <div style="display:flex;flex-direction:column">
+          <div style="display:flex;gap:22px">
+            <div style="flex:none;display:flex;flex-direction:column;align-items:center"><div style="width:14px;height:14px;border-radius:50%;background:#DC1733;border:3px solid #F6F6F4;box-shadow:0 0 0 1px #DC1733"></div><div style="flex:1;width:2px;background:#E2E2E0;margin-top:4px"></div></div>
+            <div style="padding-bottom:34px">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#DC1733;margin-bottom:6px">OCTOBER 2020</div>
+              <h3 style="font-size:19px;font-weight:800;letter-spacing:-.01em;margin:0 0 7px;color:#121214">Bulk tanker transport</h3>
+              <p style="font-size:15px;line-height:1.6;color:#55555C;margin:0">We launched logistics operations from Adana with bulk tanker (silo) transport.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:22px">
+            <div style="flex:none;display:flex;flex-direction:column;align-items:center"><div style="width:14px;height:14px;border-radius:50%;background:#DC1733;border:3px solid #F6F6F4;box-shadow:0 0 0 1px #DC1733"></div><div style="flex:1;width:2px;background:#E2E2E0;margin-top:4px"></div></div>
+            <div style="padding-bottom:34px">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#DC1733;margin-bottom:6px">JANUARY 2022</div>
+              <h3 style="font-size:19px;font-weight:800;letter-spacing:-.01em;margin:0 0 7px;color:#121214">Dry freight with curtain-side trucks</h3>
+              <p style="font-size:15px;line-height:1.6;color:#55555C;margin:0">We moved into dry-freight transport with a curtain-side truck fleet.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:22px">
+            <div style="flex:none;display:flex;flex-direction:column;align-items:center"><div style="width:14px;height:14px;border-radius:50%;background:#DC1733;border:3px solid #F6F6F4;box-shadow:0 0 0 1px #DC1733"></div><div style="flex:1;width:2px;background:#E2E2E0;margin-top:4px"></div></div>
+            <div style="padding-bottom:34px">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#DC1733;margin-bottom:6px">FEBRUARY 2022</div>
+              <h3 style="font-size:19px;font-weight:800;letter-spacing:-.01em;margin:0 0 7px;color:#121214">Container transport</h3>
+              <p style="font-size:15px;line-height:1.6;color:#55555C;margin:0">We added container transport to our service portfolio.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:22px">
+            <div style="flex:none;display:flex;flex-direction:column;align-items:center"><div style="width:14px;height:14px;border-radius:50%;background:#DC1733;border:3px solid #F6F6F4;box-shadow:0 0 0 1px #DC1733"></div><div style="flex:1;width:2px;background:#E2E2E0;margin-top:4px"></div></div>
+            <div style="padding-bottom:34px">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#DC1733;margin-bottom:6px">NOVEMBER 2023</div>
+              <h3 style="font-size:19px;font-weight:800;letter-spacing:-.01em;margin:0 0 7px;color:#121214">Cold chain transport</h3>
+              <p style="font-size:15px;line-height:1.6;color:#55555C;margin:0">We launched temperature-controlled cold-chain service with refrigerated trucks.</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:22px">
+            <div style="flex:none;display:flex;flex-direction:column;align-items:center"><div style="width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid #F6F6F4;box-shadow:0 0 0 2px #DC1733"></div></div>
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:#DC1733;margin-bottom:6px">2026</div>
+              <h3 style="font-size:19px;font-weight:800;letter-spacing:-.01em;margin:0 0 7px;color:#121214">Sakarya office opened</h3>
+              <p style="font-size:15px;line-height:1.6;color:#55555C;margin:0">We opened our Sakarya office to widen our service network.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section id="why" style="background:#fff">
+    <div style="max-width:1680px;margin:0 auto;padding:96px 32px">
+      <div style="display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#DC1733;margin-bottom:16px"><span style="width:24px;height:2px;background:#DC1733"></span>Why Bies</div>
+      <h2 style="font-size:42px;line-height:1.05;font-weight:900;letter-spacing:-.025em;margin:0 0 52px;color:#121214;max-width:640px">Procurement teams stay with us for a reason</h2>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:48px 56px">
+        <div style="display:flex;gap:20px">
+          <div style="flex:none;width:46px;height:46px;border-radius:3px;background:#FBE7EB;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;color:#DC1733">01</div>
+          <div>
+            <h3 style="font-size:20px;font-weight:800;letter-spacing:-.01em;margin:2px 0 9px;color:#121214">Fast, on-time delivery guaranteed</h3>
+            <p style="font-size:15.5px;line-height:1.6;color:#55555C;margin:0">We deliver the fastest and most reliable solutions. Every shipment arrives on time, complete and trouble-free.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px">
+          <div style="flex:none;width:46px;height:46px;border-radius:3px;background:#FBE7EB;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;color:#DC1733">02</div>
+          <div>
+            <h3 style="font-size:20px;font-weight:800;letter-spacing:-.01em;margin:2px 0 9px;color:#121214">24/7 customer support line</h3>
+            <p style="font-size:15.5px;line-height:1.6;color:#55555C;margin:0">We're with you at every step of the process. Reach us anytime for answers and instant solutions to your needs.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px">
+          <div style="flex:none;width:46px;height:46px;border-radius:3px;background:#FBE7EB;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;color:#DC1733">03</div>
+          <div>
+            <h3 style="font-size:20px;font-weight:800;letter-spacing:-.01em;margin:2px 0 9px;color:#121214">Leaders in safe transport</h3>
+            <p style="font-size:15.5px;line-height:1.6;color:#55555C;margin:0">Safety comes first in every operation. Your cargo is carried insured and handled with care by our professional teams.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px">
+          <div style="flex:none;width:46px;height:46px;border-radius:3px;background:#FBE7EB;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;color:#DC1733">04</div>
+          <div>
+            <h3 style="font-size:20px;font-weight:800;letter-spacing:-.01em;margin:2px 0 9px;color:#121214">Road freight with our wide fleet</h3>
+            <p style="font-size:15.5px;line-height:1.6;color:#55555C;margin:0">We guarantee fast, reliable and on-time delivery across domestic and international road freight.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact" style="background:#121214;color:#fff">
+    <div style="max-width:1680px;margin:0 auto;padding:84px 32px">
+      <div style="display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center">
+        <div>
+          <h2 style="font-size:44px;line-height:1.05;font-weight:900;letter-spacing:-.025em;margin:0 0 18px">Let's move your<br>next load.</h2>
+          <p style="font-size:17px;line-height:1.6;color:#A9A9B2;margin:0 0 30px;max-width:440px">Tell us the lane, the temperature and the timing. We'll come back with a plan and a price — usually the same day.</p>
+          <div style="display:flex;gap:14px;flex-wrap:wrap">
+            <a href="mailto:bilgi@bieslojistik.com.tr" style="display:inline-flex;align-items:center;gap:9px;background:#DC1733;color:#fff;font-weight:700;font-size:15.5px;text-decoration:none;padding:15px 26px;border-radius:2px">Get a quote <span>→</span></a>
+            <a href="tel:+905384486346" style="display:inline-flex;align-items:center;gap:9px;background:transparent;color:#fff;font-weight:700;font-size:15.5px;text-decoration:none;padding:15px 24px;border-radius:2px;border:1.5px solid #3A3A40">Call operations</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1px;background:#26262A;border-radius:6px;overflow:hidden">
+          <div style="background:#16161A;padding:22px 24px">
+            <div style="font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A7A82;margin-bottom:6px">Phone</div>
+            <div style="font-size:18px;font-weight:600">+90 538 448 63 46</div>
+          </div>
+          <div style="background:#16161A;padding:22px 24px">
+            <div style="font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A7A82;margin-bottom:6px">Email</div>
+            <div style="font-size:18px;font-weight:600">bilgi@bieslojistik.com.tr</div>
+          </div>
+          <div style="background:#16161A;padding:22px 24px">
+            <div style="font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A7A82;margin-bottom:6px">Head office · Adana</div>
+            <div style="font-size:15.5px;font-weight:600;line-height:1.55">Huzurevleri Mah. Türkmenbaşı Bulvarı<br>77113 Sokak No 26.1.A<br>Çukurova · Adana · Türkiye</div>
+          </div>
+          <div style="background:#16161A;padding:22px 24px">
+            <div style="font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A7A82;margin-bottom:6px">Sakarya office</div>
+            <div style="font-size:15.5px;font-weight:600;line-height:1.55">Gündoğan, Çevre Yolu Cad. No 61/2<br>54160 Söğütlü · Sakarya · Türkiye</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#0A0A0C;color:#8A8A92">
+    <div style="max-width:1680px;margin:0 auto;padding:54px 32px 40px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:36px;border-bottom:1px solid #1E1E22">
+        <div style="max-width:300px">
+          <img src="assets/bies-logo-white.png" alt="Bies Lojistik" style="height:34px;width:auto;display:block;margin-bottom:18px">
+          <p style="font-size:14px;line-height:1.6;margin:0">Temperature-controlled and full-load freight across Türkiye.</p>
+        </div>
+        <div style="display:flex;gap:64px;flex-wrap:wrap">
+          <div>
+            <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:14px">Services</div>
+            <div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+              <a href="#services" style="color:#8A8A92;text-decoration:none">Road freight</a>
+              <a href="#cold-chain" style="color:#8A8A92;text-decoration:none">Cold chain</a>
+              <a href="#services" style="color:#8A8A92;text-decoration:none">FTL &amp; LTL</a>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:14px">Company</div>
+            <div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+              <a href="#why" style="color:#8A8A92;text-decoration:none">Why Bies</a>
+              <a href="#clients" style="color:#8A8A92;text-decoration:none">Clients</a>
+              <a href="#contact" style="color:#8A8A92;text-decoration:none">Contact</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px">
+        <span>© 2026 Bies Lojistik. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { scrolled:false, statsDone:false, onTime:0, menuOpen:false };
+    this.toggleMenu = () => this.setState(s => ({ menuOpen:!s.menuOpen }));
+    this.closeMenu = () => { if (this.state.menuOpen) this.setState({ menuOpen:false }); };
+    this.statsRef = React.createRef();
+  }
+  componentDidMount(){
+    document.title = 'Bies Lojistik';
+    this._onScroll = () => {
+      const s = window.scrollY > 12;
+      if (s !== this.state.scrolled) this.setState({ scrolled:s });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive:true });
+    this._io = new IntersectionObserver((ents) => {
+      ents.forEach(e => { if (e.isIntersecting && !this.state.statsDone) this.runCount(); });
+    }, { threshold:0.4 });
+    if (this.statsRef.current) this._io.observe(this.statsRef.current);
+  }
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this._onScroll);
+    if (this._io) this._io.disconnect();
+  }
+  runCount(){
+    this.setState({ statsDone:true });
+    const start = performance.now(), dur = 1500;
+    const tick = (now) => {
+      const p = Math.min(1, (now-start)/dur);
+      const e = 1 - Math.pow(1-p, 3);
+      this.setState({ onTime: Math.round(100*e) });
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+  renderVals(){
+    return {
+      headerShadow: this.state.scrolled ? '0 6px 24px rgba(18,18,20,.10)' : 'none',
+      statsRef: this.statsRef,
+      onTime: this.state.onTime,
+      navClass: this.state.menuOpen ? 'open' : '',
+      menuIcon: this.state.menuOpen ? '✕' : '☰',
+      toggleMenu: this.toggleMenu,
+      closeMenu: this.closeMenu
+    };
+  }
+}
+</script>
+</body>
+</html>
